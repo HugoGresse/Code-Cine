@@ -1,0 +1,52 @@
+<resources>
+    <string name="app_name">Cinéday Fetcher</string>
+
+    <string name="cineday">Cinéday</string>
+
+    <string name="plan_auto_fetcher">Démarer la récupération automatique</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="action_about">À propos</string>
+    <string name="action_account_addenter">Ajouter un compte</string>
+    <string name="action_account_add">Ajouter le compte</string>
+    <string name="action_account_save">Sauvegarder le compte</string>
+    <string name="action_share">Partager le cinéday</string>
+    <string name="action_edit">Modifier</string>
+    <string name="action_delete">Supprimer</string>
+    <string name="action_copy">Copier</string>
+    <string name="action_cancel">Annuler</string>
+
+    <string name="open_intent_browser">Opening browser…</string>
+
+    <string name="notice_copied">Copié</string>
+
+    <string name="confirm_delete_title">Supression du compte</string>
+    <string name="confirm_delete">Êtes-vous sur de vouloir supprimer le compte ?</string>
+
+    <string name="new_account_email_hint">Email</string>
+    <string name="new_account_password_hint">Mot de passe</string>
+    <string name="new_account_password_data_hint">Votre mot de passe sera crypter lors de sa sauvegarde mais l\'application
+        ne peut garantir ça sécurité.</string>
+    <string name="new_account_get_mode">Mode de récupération</string>
+    <string name="new_account_get_mode_auto">Mode de récupération</string>
+    <string name="new_account_verif">Vérifier la connection</string>
+    <string name="new_account_add_error_data">Donnée saisie invalide</string>
+    <string name="new_account_add_error_email">Email invalide</string>
+    <string name="new_account_add_check_valid">Connexion réussie</string>
+    <string name="new_account_add_check_error">Compte non valide</string>
+
+    <string name="about_title">À propos</string>
+    <string name="about_made">Fait avec amour par</string>
+    <string name="about_made_person">Hugo Gresse http://hugo.gresse.io/</string>
+    <string name="about_made_community">GitHub https://github.com/HugoGresse/Anecdote</string>
+    <string name="about_thirdsparty">Third-party libraries</string>
+    <string-array name="about_libraries">
+        <item>ButterKnife %1$s Jake Wharton http://jakewharton.github.io/butterknife/</item>
+        <item>EventBus %1$s Greenrobot http://github.com/greenrobot/EventBus</item>
+        <item>Gson %1$s Google http://github.com/google/gson</item>
+        <item>Jsoup %1$s Jonathan Hedley http://jsoup.org/</item>
+        <item>SecurePreferences %1$s Scott Alexander-Bown http://github.com/scottyab/secure-preferences/</item>
+    </string-array>
+    <string name="by">Par</string>
+
+</resources>

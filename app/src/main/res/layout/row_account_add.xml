@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="@dimen/activity_horizontal_margin"
+              android:layout_marginRight="@dimen/activity_horizontal_margin"
+              android:background="?android:attr/selectableItemBackground">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorDivider"/>
+
+    <TextView
+        android:id="@+id/okButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_add_box_black_24dp"
+        android:drawablePadding="16dp"
+        android:drawableStart="@drawable/ic_add_box_black_24dp"
+        android:gravity="center_vertical"
+        android:padding="16dp"
+        android:text="@string/action_account_addenter"
+        android:textStyle="bold"
+        android:tint="@color/colorPrimary"
+        android:fontFamily="sans-serif"/>
+</LinearLayout>
