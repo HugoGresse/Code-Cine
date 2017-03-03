@@ -1,4 +1,4 @@
-package io.gresse.hugo.cinedayfetcher.fetcher;
+package io.gresse.hugo.cinedayfetcher.fetcher.service;
 
 import android.app.Service;
 import android.content.Intent;

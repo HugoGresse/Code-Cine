@@ -1,4 +1,4 @@
-package io.gresse.hugo.cinedayfetcher.fetcher;
+package io.gresse.hugo.cinedayfetcher.fetcher.service;
 
 import android.os.Message;
 import android.support.annotation.Nullable;
@@ -10,7 +10,8 @@ import java.util.List;
 
 import io.gresse.hugo.cinedayfetcher.accounts.AccountModel;
 import io.gresse.hugo.cinedayfetcher.accounts.AccountRepository;
-import io.gresse.hugo.cinedayfetcher.fetcher.event.OnFetchedFromServiceEvent;
+import io.gresse.hugo.cinedayfetcher.fetcher.Fetcher;
+import io.gresse.hugo.cinedayfetcher.fetcher.event.OnServiceFetchedEvent;
 
 /**
  * Manage retrieve of cineday in background
@@ -63,7 +64,7 @@ public class FetcherService extends CustomIntentService {
                         accountModel.setError(result);
                     }
                     AccountRepository.getInstance().saveAccount(FetcherService.this, accountModel);
-                    EventBus.getDefault().post(new OnFetchedFromServiceEvent(accountModel));
+                    EventBus.getDefault().post(new OnServiceFetchedEvent(accountModel));
                 }
             }).fetch(accountModel.accountName, accountModel.accountPassword);
         }

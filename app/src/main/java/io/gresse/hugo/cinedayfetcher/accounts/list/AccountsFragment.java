@@ -31,8 +31,9 @@ import io.gresse.hugo.cinedayfetcher.accounts.addedit.OpenAddAccountEvent;
 import io.gresse.hugo.cinedayfetcher.accounts.addedit.OpenEditAccountEvent;
 import io.gresse.hugo.cinedayfetcher.fetcher.ManualFetcher;
 import io.gresse.hugo.cinedayfetcher.fetcher.event.FetchEvent;
-import io.gresse.hugo.cinedayfetcher.fetcher.event.OnFetchedEvent;
-import io.gresse.hugo.cinedayfetcher.fetcher.event.OnFetchedFromServiceEvent;
+import io.gresse.hugo.cinedayfetcher.fetcher.event.OnManualFetchedEvent;
+import io.gresse.hugo.cinedayfetcher.fetcher.event.OnServiceFetchedEvent;
+import io.gresse.hugo.cinedayfetcher.tracking.EventTracker;
 import io.gresse.hugo.cinedayfetcher.utils.Utils;
 
 /**
@@ -94,6 +95,7 @@ public class AccountsFragment extends Fragment implements AccountsAdapter.Listen
     public void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
+        EventTracker.trackFragmentView(this, null, null);
         mManualFetcher.onResume();
 
         loadData();
@@ -122,7 +124,7 @@ public class AccountsFragment extends Fragment implements AccountsAdapter.Listen
     }
 
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
-    public void onCinedayFetchedEvent(OnFetchedEvent event) {
+    public void onCinedayFetchedEvent(OnManualFetchedEvent event) {
         EventBus.getDefault().removeStickyEvent(event);
 
         AccountModel accountModel = event.fetchEvent.accountModel;
@@ -142,7 +144,7 @@ public class AccountsFragment extends Fragment implements AccountsAdapter.Listen
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onFetcherServiceUpdate(OnFetchedFromServiceEvent event) {
+    public void onFetcherServiceUpdate(OnServiceFetchedEvent event) {
         int position = mAccountModels.indexOf(event.accountModel);
         mAccountModels.set(position, event.accountModel);
         AccountRepository.getInstance().saveAccounts(getContext(), mAccountModels);
@@ -201,6 +203,8 @@ public class AccountsFragment extends Fragment implements AccountsAdapter.Listen
                 Intent.EXTRA_TEXT,
                 mAccountModels.get(position).getCinedayOrError());
 
+        EventTracker.trackAccountShare();
+
         getActivity().startActivity(
                 Intent.createChooser(
                         sharingIntent,
@@ -210,6 +214,7 @@ public class AccountsFragment extends Fragment implements AccountsAdapter.Listen
     @Override
     public void onCopyClick(int position) {
         Utils.copyToClipboard(getContext(), getString(R.string.cineday), mAccountModels.get(position).getCinedayOrError());
+        EventTracker.trackAccountCopy();
         Toast.makeText(getContext(), getString(R.string.notice_copied), Toast.LENGTH_SHORT).show();
     }
 }

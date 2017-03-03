@@ -17,6 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.gresse.hugo.cinedayfetcher.ChangeTitleEvent;
 import io.gresse.hugo.cinedayfetcher.R;
+import io.gresse.hugo.cinedayfetcher.tracking.EventTracker;
 
 /**
  * About fragment
@@ -60,7 +61,7 @@ public class AboutFragment extends Fragment implements AboutAdapter.OnClickListe
     @Override
     public void onResume() {
         super.onResume();
-        // TODO : tracking
+        EventTracker.trackFragmentView(this, null, null);
         EventBus.getDefault().post(new ChangeTitleEvent(getString(R.string.action_about), this.getClass().getName()));
     }
 

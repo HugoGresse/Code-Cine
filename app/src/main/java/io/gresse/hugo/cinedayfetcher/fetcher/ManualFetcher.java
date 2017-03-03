@@ -6,7 +6,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import io.gresse.hugo.cinedayfetcher.fetcher.event.FetchEvent;
-import io.gresse.hugo.cinedayfetcher.fetcher.event.OnFetchedEvent;
+import io.gresse.hugo.cinedayfetcher.fetcher.event.OnManualFetchedEvent;
 
 /**
  * Retrieve the cineday for one account
@@ -35,7 +35,7 @@ public class ManualFetcher {
 
             @Override
             public void onFinish(boolean success, String result, @Nullable Exception exception) {
-                EventBus.getDefault().post(new OnFetchedEvent(event, success, result));
+                EventBus.getDefault().post(new OnManualFetchedEvent(event, success, result));
             }
         }).execute(event.accountModel.accountName, event.accountModel.accountPassword);
     }

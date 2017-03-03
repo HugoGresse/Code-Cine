@@ -27,6 +27,7 @@ import butterknife.Unbinder;
 import io.gresse.hugo.cinedayfetcher.R;
 import io.gresse.hugo.cinedayfetcher.accounts.AccountModel;
 import io.gresse.hugo.cinedayfetcher.fetcher.AccountCheckerFetcher;
+import io.gresse.hugo.cinedayfetcher.tracking.EventTracker;
 import io.gresse.hugo.cinedayfetcher.utils.Utils;
 
 /**
@@ -129,7 +130,12 @@ public class AddEditAccountFragment extends Fragment {
         if (mPassword != null) {
             mPasswordEditText.setText(mPassword);
         }
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        EventTracker.trackFragmentView(this, null, null);
     }
 
     @Override

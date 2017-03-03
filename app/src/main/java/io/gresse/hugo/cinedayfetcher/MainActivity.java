@@ -16,6 +16,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.crashlytics.android.Crashlytics;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -23,6 +25,7 @@ import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.fabric.sdk.android.Fabric;
 import io.gresse.hugo.cinedayfetcher.about.AboutFragment;
 import io.gresse.hugo.cinedayfetcher.accounts.AccountRepository;
 import io.gresse.hugo.cinedayfetcher.accounts.addedit.AddAccountEvent;
@@ -31,8 +34,9 @@ import io.gresse.hugo.cinedayfetcher.accounts.addedit.EditAccountEvent;
 import io.gresse.hugo.cinedayfetcher.accounts.addedit.OpenAddAccountEvent;
 import io.gresse.hugo.cinedayfetcher.accounts.addedit.OpenEditAccountEvent;
 import io.gresse.hugo.cinedayfetcher.accounts.list.AccountsFragment;
-import io.gresse.hugo.cinedayfetcher.fetcher.CinedayCleanerReceiver;
-import io.gresse.hugo.cinedayfetcher.fetcher.NetworkChangeReceiver;
+import io.gresse.hugo.cinedayfetcher.fetcher.receiver.CinedayCleanerReceiver;
+import io.gresse.hugo.cinedayfetcher.fetcher.receiver.NetworkChangeReceiver;
+import io.gresse.hugo.cinedayfetcher.tracking.EventTracker;
 
 
 /**
@@ -52,6 +56,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (EventTracker.isEventEnable()) {
+            new EventTracker(this);
+            Fabric.with(this, new Crashlytics());
+        }
+
 
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
@@ -84,6 +94,18 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
 
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventTracker.onStart(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        EventTracker.onStop();
     }
 
     @Override

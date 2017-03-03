@@ -1,4 +1,4 @@
-package io.gresse.hugo.cinedayfetcher.fetcher;
+package io.gresse.hugo.cinedayfetcher.fetcher.service;
 
 import android.os.Message;
 import android.util.Log;
@@ -9,7 +9,7 @@ import java.util.List;
 
 import io.gresse.hugo.cinedayfetcher.accounts.AccountModel;
 import io.gresse.hugo.cinedayfetcher.accounts.AccountRepository;
-import io.gresse.hugo.cinedayfetcher.fetcher.event.OnFetchedFromServiceEvent;
+import io.gresse.hugo.cinedayfetcher.fetcher.event.OnServiceFetchedEvent;
 
 /**
  * Clean cineday
@@ -45,7 +45,7 @@ public class CleaningService extends CustomIntentService {
             accountModel.cleanFields();
 
             AccountRepository.getInstance().saveAccount(CleaningService.this, accountModel);
-            EventBus.getDefault().post(new OnFetchedFromServiceEvent(accountModel));
+            EventBus.getDefault().post(new OnServiceFetchedEvent(accountModel));
         }
     }
 }

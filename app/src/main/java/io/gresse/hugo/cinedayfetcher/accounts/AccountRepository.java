@@ -11,6 +11,8 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.gresse.hugo.cinedayfetcher.tracking.EventTracker;
+
 /**
  * Manage storage of Orange accounts
  * <p>
@@ -66,6 +68,8 @@ public class AccountRepository {
 
         mSecurePreferences.edit().putString(PREF_KEY, new Gson().toJson(accountModelList)).apply();
 
+        EventTracker.trackAccountAdd();
+
         return accountModel;
     }
 
@@ -83,6 +87,9 @@ public class AccountRepository {
         accountModelList.remove(accountModel);
 
         mSecurePreferences.edit().putString(PREF_KEY, new Gson().toJson(accountModelList)).apply();
+
+        EventTracker.trackAccountDelete();
+
         return accountModelList;
     }
 
@@ -99,6 +106,8 @@ public class AccountRepository {
                 break;
             }
         }
+
+        EventTracker.trackAccountEdit();
 
         mSecurePreferences.edit().putString(PREF_KEY, new Gson().toJson(accountModelList)).apply();
     }

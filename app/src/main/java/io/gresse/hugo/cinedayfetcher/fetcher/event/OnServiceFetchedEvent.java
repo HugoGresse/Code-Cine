@@ -8,11 +8,11 @@ import io.gresse.hugo.cinedayfetcher.accounts.AccountModel;
  * Created by Hugo Gresse on 13/02/2017.
  */
 
-public class OnFetchedFromServiceEvent {
+public class OnServiceFetchedEvent {
 
     public final AccountModel accountModel;
 
-    public OnFetchedFromServiceEvent(AccountModel accountModel) {
+    public OnServiceFetchedEvent(AccountModel accountModel) {
         this.accountModel = accountModel;
     }
 }

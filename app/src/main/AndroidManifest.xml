@@ -23,15 +23,15 @@
         </activity>
 
         <service
-            android:name=".fetcher.FetcherService"
+            android:name=".fetcher.service.FetcherService"
             android:exported="false"/>
 
         <service
-            android:name=".fetcher.CleaningService"
+            android:name=".fetcher.service.CleaningService"
             android:exported="false"/>
 
         <receiver
-            android:name=".fetcher.NetworkChangeReceiver"
+            android:name=".fetcher.receiver.NetworkChangeReceiver"
             android:label="NetworkChangeReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
@@ -39,11 +39,14 @@
         </receiver>
 
         <receiver
-            android:name=".fetcher.CinedayCleanerReceiver"
+            android:name=".fetcher.receiver.CinedayCleanerReceiver"
             android:label="CinedayCleaningReceiber">
         </receiver>
 
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="e54a8963ab6d7edabff9d8fc53adb19eac370a96" />
     </application>
 
 </manifest>

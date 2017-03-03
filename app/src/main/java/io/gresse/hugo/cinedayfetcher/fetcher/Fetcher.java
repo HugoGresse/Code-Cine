@@ -13,6 +13,7 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 
 import io.gresse.hugo.cinedayfetcher.Configuration;
+import io.gresse.hugo.cinedayfetcher.tracking.EventTracker;
 
 /**
  * Retrieve/scrap a cineday from the web using JSOUP
@@ -43,6 +44,9 @@ public class Fetcher {
              * 5. parse result of the ajax request
              */
             final int STEP = 5;
+
+
+            EventTracker.trackAccountFetch(EventTracker.TRACKING_FETCH_START);
 
             if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
                 throw new IllegalArgumentException("Missing credentials");
@@ -101,6 +105,7 @@ public class Fetcher {
                 String cineday = elements.get(0).text();
 
                 postFinish(true, cineday, null);
+
                 return cineday;
             }
 
@@ -132,6 +137,12 @@ public class Fetcher {
     private void postFinish(final boolean success, final String result, final @Nullable Exception e) {
         if (mListener != null) {
             mListener.onFinish(success, result, e);
+
+            if (success) {
+                EventTracker.trackAccountFetch(EventTracker.TRACKING_FETCH_END);
+            } else {
+                EventTracker.trackAccountFetch(EventTracker.TRACKING_FETCH_END_FAIL);
+            }
         }
     }
 

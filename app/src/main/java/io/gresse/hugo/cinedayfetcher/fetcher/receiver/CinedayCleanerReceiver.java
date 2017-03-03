@@ -1,9 +1,11 @@
-package io.gresse.hugo.cinedayfetcher.fetcher;
+package io.gresse.hugo.cinedayfetcher.fetcher.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+
+import io.gresse.hugo.cinedayfetcher.fetcher.service.CleaningService;
 
 /**
  * Receive network connection change

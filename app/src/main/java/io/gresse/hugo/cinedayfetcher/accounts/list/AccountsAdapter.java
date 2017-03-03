@@ -35,14 +35,14 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.Holder
     public static final String TAG = AccountsAdapter.class.getSimpleName();
 
     public static final int HOLDER_ACCOUNT = 1;
-    public static final int HOLDER_ADD = 2;
+    public static final int HOLDER_ADD     = 2;
 
-    private List<AccountModel> mAccountList;
+    private       List<AccountModel> mAccountList;
     @NonNull
-    private final Listener mListener;
-    private final Animation mRotateAnimation;
-    private final int mTextSizeNormal;
-    private final int mTextSizeBig;
+    private final Listener           mListener;
+    private final Animation          mRotateAnimation;
+    private final int                mTextSizeNormal;
+    private final int                mTextSizeBig;
 
     public AccountsAdapter(Context context, @NonNull Listener listener) {
         mListener = listener;
@@ -52,18 +52,18 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.Holder
         mTextSizeBig = (int) context.getResources().getDimension(R.dimen.text_size_cineday_big);
     }
 
-    public void setData(List<AccountModel> accountModels){
+    public void setData(List<AccountModel> accountModels) {
         Log.d(TAG, "setData");
         mAccountList = accountModels;
     }
 
-    public void updateData(List<AccountModel> accountModels, int positionChange){
+    public void updateData(List<AccountModel> accountModels, int positionChange) {
         Log.d(TAG, "updateData");
         mAccountList = accountModels;
         this.notifyItemChanged(positionChange);
     }
 
-    public void updateDataWithRemove(List<AccountModel> accountModels, int positionChange){
+    public void updateDataWithRemove(List<AccountModel> accountModels, int positionChange) {
         Log.d(TAG, "updateDataWithRemove");
         mAccountList = accountModels;
         this.notifyItemRemoved(positionChange);
@@ -96,14 +96,14 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.Holder
 
     @Override
     public int getItemViewType(int position) {
-        if(position == mAccountList.size()){
+        if (position == mAccountList.size()) {
             return HOLDER_ADD;
         } else {
             return HOLDER_ACCOUNT;
         }
     }
 
-    abstract class Holder extends RecyclerView.ViewHolder{
+    abstract class Holder extends RecyclerView.ViewHolder {
 
 
         Holder(View itemView) {
@@ -112,7 +112,7 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.Holder
             ButterKnife.bind(this, itemView);
         }
 
-        public void setData(@Nullable Object object){
+        public void setData(@Nullable Object object) {
         }
 
     }
@@ -124,23 +124,23 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.Holder
             super(itemView);
         }
 
-        public void setData(@Nullable Object object){
+        public void setData(@Nullable Object object) {
         }
 
         @OnClick(R.id.okButton)
-        public void onAddClick(View view){
+        public void onAddClick(View view) {
             mListener.onAddClick();
         }
     }
 
-    class AccountHolder extends Holder{
+    class AccountHolder extends Holder {
 
         @BindView(R.id.accountName)
-        public TextView mAccountName;
+        public TextView         mAccountName;
         @BindView(R.id.date)
         public RelativeTextView mDateTextView;
         @BindView(R.id.cineday)
-        public TextView mCinedayTextView;
+        public TextView         mCinedayTextView;
 
         @BindView(R.id.refreshButton)
         public ImageButton mRefreshButton;
@@ -154,7 +154,7 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.Holder
             AccountModel accountModel = (AccountModel) object;
             mAccountName.setText(accountModel.accountName);
 
-            if(accountModel.updatedAt != 0L){
+            if (accountModel.updatedAt != 0L) {
                 mDateTextView.setVisibility(View.VISIBLE);
                 mDateTextView.setTime(accountModel.updatedAt);
             } else {
@@ -163,13 +163,13 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.Holder
 
             mCinedayTextView.setText(accountModel.getCinedayOrError());
 
-            if(accountModel.isCinedayLoaded()){
+            if (accountModel.isCinedayLoaded()) {
                 mCinedayTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSizeBig);
             } else {
                 mCinedayTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSizeNormal);
             }
 
-            if(accountModel.inProgress){
+            if (accountModel.inProgress) {
                 mRefreshButton.startAnimation(mRotateAnimation);
             } else {
                 mRefreshButton.clearAnimation();
@@ -177,17 +177,17 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.Holder
         }
 
         @OnClick(R.id.shareButton)
-        public void onShareClick(){
+        public void onShareClick() {
             mListener.onShareClick(getAdapterPosition());
         }
 
         @OnClick(R.id.refreshButton)
-        public void onRefreshClick(){
+        public void onRefreshClick() {
             mListener.onRefreshClick(getAdapterPosition());
         }
 
         @OnClick(R.id.optionButton)
-        public void onOptionClick(View view){
+        public void onOptionClick(View view) {
             PopupMenu popup = new PopupMenu(view.getContext(), view);
             popup.inflate(R.menu.menu_account);
             popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -213,10 +213,15 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.Holder
 
     public interface Listener {
         void onAddClick();
+
         void onRefreshClick(int position);
+
         void onCopyClick(int position);
+
         void onDeleteClick(int position);
+
         void onEditClick(int position);
+
         void onShareClick(int position);
 
     }
