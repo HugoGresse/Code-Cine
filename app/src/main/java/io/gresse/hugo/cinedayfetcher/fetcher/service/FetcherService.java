@@ -6,6 +6,7 @@ import android.util.Log;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.Calendar;
 import java.util.List;
 
 import io.gresse.hugo.cinedayfetcher.accounts.AccountModel;
@@ -35,6 +36,12 @@ public class FetcherService extends CustomIntentService {
     @Override
     protected void onHandleMessage(Message message) {
         if (message == null) {
+            return;
+        }
+
+        // Skip fetching if not on Tuesday/mardi
+        Calendar calendar = Calendar.getInstance();
+        if(calendar.get(Calendar.DAY_OF_WEEK) != Calendar.TUESDAY){
             return;
         }
 
