@@ -24,12 +24,27 @@ android {
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
     }
+
     buildTypes {
+
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+
+    project.ext.set("archivesBaseName", "Cineday-fetcher");
+
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            if(variant.buildType.name == "release"){
+                output.outputFile = new File(
+                        output.outputFile.parent,
+                        output.outputFile.name.replace(".apk", "-"+variant.versionName + ".apk"))
+            }
         }
     }
 }
