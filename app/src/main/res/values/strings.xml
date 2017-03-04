@@ -46,6 +46,7 @@
         <item>Gson %1$s Google http://github.com/google/gson</item>
         <item>Jsoup %1$s Jonathan Hedley http://jsoup.org/</item>
         <item>SecurePreferences %1$s Scott Alexander-Bown http://github.com/scottyab/secure-preferences/</item>
+        <item>Crashlytics &amp; Answers %1$s Fabric http://fabric.io/</item>
     </string-array>
     <string name="by">Par</string>
 

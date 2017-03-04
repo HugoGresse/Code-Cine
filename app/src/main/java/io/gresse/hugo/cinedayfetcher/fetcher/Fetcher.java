@@ -30,11 +30,11 @@ public class Fetcher {
     @Nullable
     private Listener mListener;
 
-    Fetcher(@Nullable Listener listener) {
+    public Fetcher(@Nullable Listener listener) {
         mListener = listener;
     }
 
-    protected String fetch(String email, String password) {
+    public String fetch(String email, String password) {
         try {
             /*
              * 1. Get SSO Page
