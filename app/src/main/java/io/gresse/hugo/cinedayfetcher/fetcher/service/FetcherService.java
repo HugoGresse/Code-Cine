@@ -1,5 +1,9 @@
 package io.gresse.hugo.cinedayfetcher.fetcher.service;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -9,6 +13,8 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.Calendar;
 import java.util.List;
 
+import io.gresse.hugo.cinedayfetcher.MainActivity;
+import io.gresse.hugo.cinedayfetcher.R;
 import io.gresse.hugo.cinedayfetcher.accounts.AccountModel;
 import io.gresse.hugo.cinedayfetcher.accounts.AccountRepository;
 import io.gresse.hugo.cinedayfetcher.fetcher.Fetcher;
@@ -70,10 +76,39 @@ public class FetcherService extends CustomIntentService {
                     } else {
                         accountModel.setError(result);
                     }
+
+                    displayNotification(accountModel);
+
                     AccountRepository.getInstance().saveAccount(FetcherService.this, accountModel);
                     EventBus.getDefault().post(new OnServiceFetchedEvent(accountModel));
                 }
             }).fetch(accountModel.accountName, accountModel.accountPassword);
         }
+    }
+
+    private void displayNotification(AccountModel accountModel){
+        Intent intent = new Intent(this, MainActivity.class);
+        PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);
+
+        String result;
+
+        if(accountModel.isCinedayLoaded()){
+            result = accountModel.accountName + " " + accountModel.tempCineday;
+        } else {
+            result = accountModel + " échec";
+        }
+
+        Notification n  = new Notification.Builder(this)
+                .setContentTitle(getString(R.string.app_name))
+                .setContentText(result)
+                .setSmallIcon(R.drawable.ic_stat_cineday_fetcher)
+                .setContentIntent(pIntent)
+                .setAutoCancel(true)
+                .build();
+
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        notificationManager.notify(0, n);
     }
 }
