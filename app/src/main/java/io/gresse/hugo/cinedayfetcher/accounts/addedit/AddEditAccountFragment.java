@@ -120,7 +120,7 @@ public class AddEditAccountFragment extends Fragment {
         if (mEditMode) {
             mOkButton.setText(R.string.action_account_save);
         } else {
-            mOkButton.setText(R.string.action_account_addenter);
+            mOkButton.setText(R.string.action_account_add);
         }
 
         if (mEmail != null) {

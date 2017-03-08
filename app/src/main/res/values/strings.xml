@@ -29,7 +29,7 @@
         ne peut garantir ça sécurité.</string>
     <string name="new_account_get_mode">Mode de récupération</string>
     <string name="new_account_get_mode_auto">Mode de récupération</string>
-    <string name="new_account_verif">Vérifier la connection</string>
+    <string name="new_account_verif">Vérifier la connexion</string>
     <string name="new_account_add_error_data">Donnée saisie invalide</string>
     <string name="new_account_add_error_email">Email invalide</string>
     <string name="new_account_add_check_valid">Connexion réussie</string>
@@ -38,7 +38,7 @@
     <string name="about_title">À propos</string>
     <string name="about_made">Fait avec amour par</string>
     <string name="about_made_person">Hugo Gresse http://hugo.gresse.io/</string>
-    <string name="about_made_community">GitHub https://github.com/HugoGresse/Anecdote</string>
+    <string name="about_made_community">GitHub https://github.com/HugoGresse/Cinedayfetcher</string>
     <string name="about_thirdsparty">Third-party libraries</string>
     <string-array name="about_libraries">
         <item>ButterKnife %1$s Jake Wharton http://jakewharton.github.io/butterknife/</item>
