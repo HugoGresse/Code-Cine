@@ -24,6 +24,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import butterknife.Unbinder;
+import io.gresse.hugo.cinedayfetcher.ChangeTitleEvent;
 import io.gresse.hugo.cinedayfetcher.R;
 import io.gresse.hugo.cinedayfetcher.accounts.AccountModel;
 import io.gresse.hugo.cinedayfetcher.fetcher.AccountCheckerFetcher;
@@ -136,6 +137,11 @@ public class AddEditAccountFragment extends Fragment {
     public void onResume() {
         super.onResume();
         EventTracker.trackFragmentView(this, null, null);
+        if(mEditMode){
+            EventBus.getDefault().post(new ChangeTitleEvent(getString(R.string.account_edit_title), this.getClass().getName()));
+        } else {
+            EventBus.getDefault().post(new ChangeTitleEvent(getString(R.string.action_account_addenter), this.getClass().getName()));
+        }
     }
 
     @Override

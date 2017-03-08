@@ -44,7 +44,7 @@ import io.gresse.hugo.cinedayfetcher.tracking.EventTracker;
  * - remove all cineday at the end of mardi
  * - tracking
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener {
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        //ButterKnife.setDebug(true);
 
         setSupportActionBar(mToolbar);
 
@@ -74,6 +73,9 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setHomeButtonEnabled(true);
 //            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        getSupportFragmentManager().addOnBackStackChangedListener(this);
+        shouldDisplayHomeUp();
 
         changeFragment(AccountsFragment.instantiate(this, AccountsFragment.class.getName()), true, false);
 
@@ -137,6 +139,29 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onBackStackChanged() {
+        shouldDisplayHomeUp();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        //This method is called when the up button is pressed. Just the pop back stack.
+        getSupportFragmentManager().popBackStack();
+        return true;
+    }
+
+    ////////////////////////////////////
+    // EVENT
+    ////////////////////////////////////
+
+    @Subscribe
+    public void onChangeToolbarTitleEvent(ChangeTitleEvent event){
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setTitle(event.title);
         }
     }
 
@@ -217,7 +242,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void planCinedayAlarm() {
+    public void shouldDisplayHomeUp(){
+        //Enable Up button only  if there are entries in the back stack
+        boolean canback = getSupportFragmentManager().getBackStackEntryCount() > 1;
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(canback);
+        }
+    }
+
+
+    private void planCinedayAlarm() {
         Intent intent = new Intent(this, NetworkChangeReceiver.class);
 
         intent.setAction(NetworkChangeReceiver.class.getCanonicalName());

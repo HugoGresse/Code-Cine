@@ -34,6 +34,7 @@
     <string name="new_account_add_error_email">Email invalide</string>
     <string name="new_account_add_check_valid">Connexion réussie</string>
     <string name="new_account_add_check_error">Compte non valide</string>
+    <string name="account_edit_title">Modification d\'un compte</string>
 
     <string name="about_title">À propos</string>
     <string name="about_made">Fait avec amour par</string>

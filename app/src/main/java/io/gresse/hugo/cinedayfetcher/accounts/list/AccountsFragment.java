@@ -24,6 +24,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.gresse.hugo.cinedayfetcher.ChangeTitleEvent;
 import io.gresse.hugo.cinedayfetcher.R;
 import io.gresse.hugo.cinedayfetcher.accounts.AccountModel;
 import io.gresse.hugo.cinedayfetcher.accounts.AccountRepository;
@@ -96,6 +97,7 @@ public class AccountsFragment extends Fragment implements AccountsAdapter.Listen
         super.onResume();
         EventBus.getDefault().register(this);
         EventTracker.trackFragmentView(this, null, null);
+        EventBus.getDefault().post(new ChangeTitleEvent(getString(R.string.app_name), this.getClass().getName()));
         mManualFetcher.onResume();
 
         loadData();

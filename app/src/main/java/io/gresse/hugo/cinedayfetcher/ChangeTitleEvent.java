@@ -13,8 +13,6 @@ public class ChangeTitleEvent{
     public String  title;
     @Nullable
     public String  className;
-    @Nullable
-    public String websiteSlug;
 
     public ChangeTitleEvent(@Nullable String title, @Nullable String className) {
         this.title = title;
