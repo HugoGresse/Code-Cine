@@ -189,6 +189,7 @@ public class AccountsFragment extends Fragment implements AccountsAdapter.Listen
 
     @Override
     public void onEditClick(int position) {
+        EventTracker.log("Number of accounts in the list: " + mAccountModels.size());
         EventBus.getDefault().post(new OpenEditAccountEvent(mAccountModels.get(position)));
     }
 

@@ -15,5 +15,6 @@ public interface EventSenderInterface {
     void onStop();
     void sendView(String name, String type);
     void sendEvent(String eventName, @Nullable Object... datas);
+    void sendLog(String log);
 
 }

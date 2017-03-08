@@ -63,4 +63,9 @@ public class EventSender implements EventSenderInterface {
         Answers.getInstance().logCustom(event);
     }
 
+    @Override
+    public void sendLog(String log) {
+        Crashlytics.log(log);
+    }
+
 }

@@ -254,7 +254,9 @@ public class AddEditAccountFragment extends Fragment {
         mAccountCheckerFetcher.run(new AccountCheckerFetcher.CheckerListener() {
             @Override
             public void onAccountChecked(boolean isValid) {
-                mProgressBar.setVisibility(View.GONE);
+                if(mProgressBar != null){
+                    mProgressBar.setVisibility(View.GONE);
+                }
                 displayVerifyFeedback(isValid);
             }
         });

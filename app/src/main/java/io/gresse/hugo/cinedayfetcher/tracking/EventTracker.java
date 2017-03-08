@@ -66,6 +66,15 @@ public class EventTracker {
     }
 
     /**
+     * Log
+     */
+    public static void log(String log) {
+        if (!isEventEnable()) return;
+
+        sEvent.sendLog(log);
+    }
+
+    /**
      * Track fragment view, should be called in onResume
      *
      * @param fragment   the fragment name to track
