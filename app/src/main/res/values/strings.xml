@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Cinéday Fetcher</string>
+    <string name="app_name">Code ciné</string>
 
     <string name="cineday">Cinéday</string>
 
@@ -10,7 +10,7 @@
     <string name="action_account_addenter">Ajouter un compte</string>
     <string name="action_account_add">Ajouter le compte</string>
     <string name="action_account_save">Sauvegarder le compte</string>
-    <string name="action_share">Partager le cinéday</string>
+    <string name="action_share">Partager le code</string>
     <string name="action_edit">Modifier</string>
     <string name="action_delete">Supprimer</string>
     <string name="action_copy">Copier</string>
