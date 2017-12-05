@@ -1,7 +1,7 @@
 ############
 # Keep correct stacktrace :
 -keepattributes SourceFile,LineNumberTable
--keepnames class io.gresse.hugo.anecdote.**
+-keepnames class io.gresse.hugo.cinedayfetcher.**
 
 
 ############
