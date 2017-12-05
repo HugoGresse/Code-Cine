@@ -25,11 +25,11 @@
 
         <service
             android:name=".fetcher.service.FetcherService"
-            android:exported="false"/>
+            android:exported="true"/>
 
         <service
             android:name=".fetcher.service.CleaningService"
-            android:exported="false"/>
+            android:exported="true"/>
 
         <receiver
             android:name=".fetcher.receiver.NetworkChangeReceiver"

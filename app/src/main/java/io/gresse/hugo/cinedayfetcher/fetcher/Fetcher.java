@@ -54,7 +54,7 @@ public class Fetcher {
 
             postProgress(0, STEP);
 
-            Connection.Response loginForm = Jsoup.connect("https://ssl-sso.orange.fr/authM/bin/omlForm.cgi?return_url=http://cineday.orange.fr/cineday/")
+            Connection.Response loginForm = Jsoup.connect("https://id.orange.fr/auth_user/bin/auth_user.cgi?return_url=http%3A%2F%2Fcineday.orange.fr%2Fcineday%2F")
                     .userAgent(Configuration.USER_AGENT)
                     .timeout(TIMEOUT)
                     .method(Connection.Method.GET)
@@ -62,10 +62,10 @@ public class Fetcher {
 
             postProgress(1, STEP);
 
-            Connection.Response cinedayHomeResponse = Jsoup.connect("https://ssl-sso.orange.fr/authM/bin/omlForm.cgi?check=1_SEP_return_url=http://cineday.orange.fr/cineday/_SEP_MCO=OFR")
+            Connection.Response cinedayHomeResponse = Jsoup.connect("https://id.orange.fr/auth_user/bin/auth_user.cgi")
                     .userAgent(Configuration.USER_AGENT)
                     .data("credential", email)
-                    .data("pwd", password)
+                    .data("password", password)
                     .cookies(loginForm.cookies())
                     .method(Connection.Method.POST)
                     .execute();
@@ -82,16 +82,10 @@ public class Fetcher {
 
             Connection.Response finalResponse = Jsoup.connect("http://mdsp.orange.fr/cineday/commande/pinRequestWeb")
                     .userAgent(Configuration.USER_AGENT)
-                    .data("portfolioId", "0")
+                    .data("portefeuilleId", "0")
+                    .method(Connection.Method.POST)
                     .cookies(responseCineday.cookies())
                     .execute();
-
-            // Check the cookie to see if the user is correctly logged or not
-            if (TextUtils.isEmpty(finalResponse.cookie("wassup"))) {
-                Log.i(TAG, "Missing wassup cookie on the final response, is the credentials valid?");
-                postFinish(false, "Identifiants non valides", null);
-                return "Identifiants non valides";
-            }
 
             Document cinedayReceiver = finalResponse.parse();
 
@@ -109,12 +103,13 @@ public class Fetcher {
                 return cineday;
             }
 
-            Elements errorElements = cinedayReceiver.getElementsByAttributeValue("class", "errorBox");
+            Elements errorElements = cinedayReceiver.getElementsByAttributeValue("class", "pas-ouverte");
 
-            String error = "Erreur. " + errorElements.text().replace("08h00", "09h00");
+            String error = "Erreur. " + errorElements.text().replace("8h00", "09h00");
+            // TODO erreur not displayed ooorectly
 
             Log.i(TAG, "AsyncTask finish with an error");
-            Log.d(TAG, cinedayReceiver.text());
+            Log.d(TAG, errorElements.text());
 
             postFinish(false, error, null);
 
